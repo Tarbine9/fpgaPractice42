@@ -21,8 +21,10 @@
 
 
 module SPI_Top(
-    input [8:0] sw,// need to implement switches on board to act as input
+    input [12:0] sw,// need to implement switches on board to act as input
     input btnC, clk, // clock input will be done with clock wizard
+    
+    output [12:0] led,
     output [6:0] seg, // 7seg display output
     output [3:0] an // ???
     );
@@ -52,8 +54,10 @@ assign inCLK = clk;
  SPI_Slave slave2(outCLK, MOSI, MISO, outSelect2, dataSend);
  SPI_Slave slave3(outCLK, MOSI, MISO, outSelect3, dataSend);
  
+ switchToLed lights(sw, led);
+
  //Will intergate at a different time.
- timedivisionmultiplexing disp(inCLK, dataSend, an, selcounter, seg);
+// timedivisionmultiplexing disp(inCLK, dataSend, an, selcounter, seg);
  
  
     
